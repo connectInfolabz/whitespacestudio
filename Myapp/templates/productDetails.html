@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<title>Whitespace Studio</title>
+
+<!-- Fav Icon -->
+<link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Stylesheets -->
+<link href="/static/css/font-awesome-all.css" rel="stylesheet">
+<link href="/static/css/flaticon.css" rel="stylesheet">
+<link href="/static/css/owl.css" rel="stylesheet">
+<link href="/static/css/bootstrap.css" rel="stylesheet">
+<link href="/static/css/jquery.fancybox.min.css" rel="stylesheet">
+<link href="/static/css/animate.css" rel="stylesheet">
+<link href="/static/css/nice-select.css" rel="stylesheet">
+<link href="/static/css/jquery.bootstrap-touchspin.css" rel="stylesheet">
+<link href="/static/css/color.css" rel="stylesheet">
+<link href="/static/css/style.css" rel="stylesheet">
+<link href="/static/css/responsive.css" rel="stylesheet">
+
+
+</head>
+
+
+<!-- page wrapper -->
+<body>
+
+    <div class="boxed_wrapper">
+
+
+        <!-- preloader -->
+        <div class="loader-wrap">
+            <div class="preloader">
+                <div class="preloader-close">Preloader Close</div>
+                <div id="handle-preloader" class="handle-preloader">
+                    <div class="animation-preloader">
+                        <div class="spinner"></div>
+                        <div class="txt-loading">
+                            <span data-text-preloader="W" class="letters-loading">
+                                W
+                            </span>
+                            <span data-text-preloader="H" class="letters-loading">
+                                H
+                            </span>
+                            <span data-text-preloader="I" class="letters-loading">
+                                I
+                            </span>
+                            <span data-text-preloader="T" class="letters-loading">
+                                T
+                            </span>
+                            <span data-text-preloader="E" class="letters-loading">
+                                E
+                            </span>
+                            <span data-text-preloader="S" class="letters-loading">
+                                S
+                            </span>
+                            <span data-text-preloader="P" class="letters-loading">
+                                P
+                            </span>
+                            <span data-text-preloader="A" class="letters-loading">
+                                A
+                            </span>
+                            <span data-text-preloader="C" class="letters-loading">
+                                C
+                            </span>
+                            <span data-text-preloader="E" class="letters-loading">
+                                E
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- preloader end -->
+
+
+        <header class="main-header style-one">
+            <!-- header-lower -->
+            <div class="header-lower">
+                <div class="outer-box">
+                    <div class="logo-box">
+                        <figure class="logo"><img src="static/images/icons/Logo.png" alt=""  style="border-radius: 50%; height: 70px; width: 70px;"></figure>
+                    </div>
+                    <div class="menu-area clearfix">
+                        <!--Mobile Navigation Toggler-->
+                        <div class="mobile-nav-toggler">
+                            <i class="icon-bar"></i>
+                            <i class="icon-bar"></i>
+                            <i class="icon-bar"></i>
+                        </div>
+                        <nav class="main-menu navbar-expand-md navbar-light">
+                            <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/products.html">Products</a></li>
+                                    <li class="dropdown"><a>Categories</a>
+                                        <ul>
+                                            {% for i in cat %}
+                                            <li>
+                                                <form method="post" action="category.html">
+                                                    {%csrf_token%}
+                                                    <input type="hidden" value="{{i.id}}" name="cateid" >
+                                                    <input type="submit" value="{{ i.CATNAME }}" style="margin:10px 0px 0px 10px;  width:80%; padding:10px;" >
+                                                </form>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li><a href="/about.html">ABOUT US</a></li>
+                                    <li><a href="/contact.html">CONTACT US</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        {%if request.session.logid%}
+                        <div class="search-box-outer" style="padding: 10px 0px;">
+                            <div class="dropdown">
+                                <button class="search-box-btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-search"></i></button>
+                                <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
+                                    <div class="form-container">
+                                        <form method="post" action="/searchdata">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <input type="search" name="searchfield" value="" placeholder="Search...." required="">
+                                                <button type="submit" class="search-btn" style="margin-top: 0px;"><span class="fas fa-search"></span></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {%endif%}
+                    </div>
+                    <div class="header-lower">
+                        <div class="outer-box">
+                            {% if request.session.logid %}
+                            <div class="btn-box">
+                                <nav class="main-menu navbar-expand-md navbar-light">
+                                    <div class="collapse navbar-collapse show clearfix">
+                                        <ul class="navigation clearfix">
+                                            <li class="current dropdown"><img src="/media/{{ pdata.dp }}" style="height: 40px; width: 40px; border-radius: 50%;">
+                                                <ul>
+                                                    <li><a href="/logout">Logout</a></li>
+                                                    <li><a href="/profile.html">Profile</a></li>
+                                                    <li><a href="/changepassword.html">Change Password</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            {% else %}
+                            <div class="btn-box">
+                                <a href="/login" class="theme-btn">login/signup<i class="far fa-angle-double-right"></i></a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+            <!--sticky Header-->
+                <div class="sticky-header">
+                    <div class="outer-box">
+                        <div class="logo-box">
+                            <figure class="logo"><img src="/static/images/icons/logo.png" alt=""  style="border-radius: 50%; height: 70px; width: 70px;"></figure>
+                        </div>
+                        <div class="menu-area">
+                            <nav class="main-menu clearfix">
+                                <!--Keep This Empty / Menu will come through Javascript-->
+                            </nav>
+                                {%if request.session.logid%}
+                            <div class="search-box-outer" style="padding: 17px 0px;">
+                                <div class="dropdown">
+                                    <button class="search-box-btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-search"></i></button>
+                                    <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
+                                        <div class="form-container">
+                                            <form method="post" action="/searchdata">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <input type="search" name="searchfield" value="" placeholder="Search...." required="">
+                                                    <button type="submit" class="search-btn" style="margin-top: 0px;"><span class="fas fa-search"></span></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                        </div>
+
+                        {% if request.session.logid %}
+
+                        {% else %}
+                        <div class="btn-box">
+                            <a href="/login" class="theme-btn">login/signup<i class="far fa-angle-double-right"></i></a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><i class="fas fa-times"></i></div>
+
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="/"><img src="/static/images/logo-2.png" alt="" title=""></a></div>
+                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+                <div class="contact-info">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>Chicago 12, Melborne City, USA</li>
+                        <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+                        <li><a href="mailto:info@example.com">info@example.com</a></li>
+                    </ul>
+                </div>
+                <div class="social-links">
+                    <ul class="clearfix">
+                        <li><a href="/"><span class="fab fa-twitter"></span></a></li>
+                        <li><a href="/"><span class="fab fa-facebook-square"></span></a></li>
+                        <li><a href="/"><span class="fab fa-pinterest-p"></span></a></li>
+                        <li><a href="/"><span class="fab fa-instagram"></span></a></li>
+                        <li><a href="/"><span class="fab fa-youtube"></span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div><!-- End Mobile Menu -->
+
+
+        <!-- Page Title -->
+        <section class="page-title centred" style="background-image: url(/static/images/background/whitespace1.jpg);">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1>Products details</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="/">Home</a></li>
+                        <li>Products details</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- End Page Title -->
+
+
+        <!-- shop-details -->
+        <section class="shop-details border-bottom">
+            <div class="product-details-content bg-color-1">
+                <div class="auto-container">
+                    <div class="row align-items-center clearfix">
+                        <div class="col-lg-7 col-md-12 col-sm-12 image-column">
+                            <div class="slider-inner">
+                                <div class="bxslider">
+                                    <div class="slider-content">
+                                        <div class="slider-pager">
+                                            <ul class="thumb-box">
+                                                {% for i in pidata %}
+                                                <li>
+                                                    <a class="active" data-slide-index="0" href="/media/{{ i.IMAGE }}"><figure><img src="/media/{{ i.IMAGE }}" alt="" style="width: 170px; height: 180px;"></figure></a>
+                                                </li>
+                                                {% endfor %}
+<!--                                                <li>-->
+<!--                                                    <a data-slide-index="1" href="#"><figure><img src="/static/images/resource/shop/single-thumb-2.jpg" alt=""></figure></a>-->
+<!--                                                </li>-->
+<!--                                                <li>-->
+<!--                                                    <a data-slide-index="2" href="#"><figure><img src="/static/images/resource/shop/single-thumb-3.jpg" alt=""></figure></a>-->
+<!--                                                </li>-->
+                                            </ul>
+                                        </div>
+                                        <div class="product-image">
+                                            <figure class="image">
+                                                <a href="/media/{{ sdata.IMAGE }}" class="lightbox-image" data-fancybox="gallery"><img src="/media/{{ sdata.IMAGE }}" alt="" style="width: 505px; height: 584px;"></a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="slider-content">
+                                        <div class="slider-pager">
+                                            <ul class="thumb-box">
+                                                {% for i in pidata %}
+                                                <li>
+                                                    <a class="active" data-slide-index="0" href="/media/{{ i.IMAGE }}"><figure><img src="/media/{{ i.IMAGE }}" alt="" style="width: 170px; height: 180px;"></figure></a>
+                                                </li>
+                                                {% endfor %}
+<!--                                                <li>-->
+<!--                                                    <a data-slide-index="1" href="#"><figure><img src="/static/images/resource/shop/single-thumb-2.jpg" alt=""></figure></a>-->
+<!--                                                </li>-->
+<!--                                                <li>-->
+<!--                                                    <a data-slide-index="2" href="#"><figure><img src="/static/images/resource/shop/single-thumb-3.jpg" alt=""></figure></a>-->
+<!--                                                </li>-->
+                                            </ul>
+                                        </div>
+                                        <div class="product-image">
+                                            <figure class="image"><a href="/media/{{ sdata.IMAGE }}" class="lightbox-image" data-fancybox="gallery"><img src="/media/{{ sdata.IMAGE }}" alt="" style="width: 505px; height: 584px;"></a></figure>
+                                        </div>
+                                    </div>
+                                    <div class="slider-content">
+                                        <div class="slider-pager">
+                                            <ul class="thumb-box">
+                                                {% for i in pidata %}
+                                                <li>
+                                                    <a class="active" data-slide-index="0" href="/media/{{ i.IMAGE }}"><figure><img src="/media/{{ i.IMAGE }}" alt="" style="width: 170px; height: 180px;"></figure></a>
+                                                </li>
+                                                {% endfor %}
+<!--                                                <li>-->
+<!--                                                    <a data-slide-index="1" href="#"><figure><img src="/static/images/resource/shop/single-thumb-2.jpg" alt=""></figure></a>-->
+<!--                                                </li>-->
+<!--                                                <li>-->
+<!--                                                    <a data-slide-index="2" href="#"><figure><img src="/static/images/resource/shop/single-thumb-3.jpg" alt=""></figure></a>-->
+<!--                                                </li>-->
+                                            </ul>
+                                        </div>
+                                        <div class="product-image">
+                                            <figure class="image"><a href="/media/{{ sdata.IMAGE }}" class="lightbox-image" data-fancybox="gallery"><img src="/media/{{ sdata.IMAGE }}" alt="" style="width: 505px; height: 584px;"></a></figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-12 col-sm-12 content-column">
+                            <div class="product-details">
+                                <h2>{{ sdata.NAME }}</h2>
+                                <ul class="rating clearfix">
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                </ul>
+                                <h5>₹ {{ sdata.PRICE }}</h5>
+                                <div class="text">
+                                    <p>{{ sdata.DESCRIPTION }}</p>
+<!--                                    <p>Sedut perspiciatis unde omnis iste natus erro sit voluptatem accusantium dolorelaudantium, totam rem aperiam, eaque ipsa</p>-->
+                                </div>
+                                <div class="color-box">
+                                    <h3>Color</h3>
+                                    <div class="color-list clearfix">
+                                        <p>{{ sdata.COLOR }}</p>
+                                    </div>
+                                </div>
+                                <div class="addto-cart-box">
+                                    <ul class="clearfix">
+<!--                                        <li class="item-quantity"><input class="quantity-spinner" type="text" value="1" name="quantity"></li>-->
+                                        {% if request.session.logid %}
+                                        <form action="/inquiry" method="post">
+                                            {%csrf_token%}
+                                            <input type="hidden" value="{{sdata.id}}" name="productid">
+                                            <input type="submit" value="Send A Inquiry" class="btn btn-danger p-3">
+                                        </form>
+<!--                                        <li><a href="/inquiry/{{ sdata.id }}"><button type="button">Send A Inquiry</button></a></li>-->
+                                        {% endif %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-discription">
+                <div class="auto-container">
+                    <div class="tabs-box">
+                        <div class="tab-btn-box">
+                            <ul class="tab-btns tab-buttons clearfix">
+                                <li class="tab-btn active-btn" data-tab="#tab-1">Description</li>
+                                <li class="tab-btn" data-tab="#tab-2">Additional information</li>
+                                {%if request.session.logid %}
+                                <li class="tab-btn" data-tab="#tab-3">Feedback</li>
+                                {%endif%}
+                            </ul>
+                        </div>
+                        <div class="tabs-content">
+                            <div class="tab active-tab" id="tab-1">
+                                <div class="content-box">
+                                    <p>Sorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur xcepteur sint occaecat cupidatat non proident, sunt.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudinInteger in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper,</p>
+                                </div>
+                            </div>
+                            <div class="tab" id="tab-2">
+                                <div class="content-box">
+                                    <p>Sorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur xcepteur sint occaecat cupidatat non proident, sunt.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudinInteger in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor.</p>
+                                </div>
+                            </div>
+                            <div class="tab" id="tab-3">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-6 col-sm-12 comment-column">
+                                        <div class="customer-comments">
+                                            <h3>Be First To Rate It</h3>
+                                            <form action="/feadbackdata" method="post" class="comment-form">
+                                                {% csrf_token %}
+                                                <input type="hidden" value="{{sdata.id}}" name="ypid">
+                                                <div class="row clearfix">
+                                                     <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                                        <label>Your Name</label>
+                                                        <input type="text" name="yname" required="">
+                                                    </div>
+
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <label>Your Review</label>
+                                                        <textarea name="ymessage" required>
+                                                        </textarea>
+                                                    </div>
+                                                   <div class="col-lg-6 col-md-12 col-sm-12 form-group message-btn">
+                                                        <input type="submit"  class="btn btn-danger" value="Submit Now">
+                                                    </div>
+                                                </div>
+                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- shop-details end -->
+
+
+        <!-- other-shop-section -->
+        <section class="other-shop-section">
+            <div class="auto-container">
+                <div class="sec-title centred">
+                    <span class="top-text">Our Shop</span>
+                    <h2>Related Products<br></h2>
+                </div>
+                <div class="row clearfix">
+                                {% for i in prodata %}
+                                {% if forloop.counter <= 8 %}
+                                <div class="col-lg-4 col-md-6 col-sm-12 news-block mb-4">
+                                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                                        <div class="inner-box">
+                                            <figure class="image-box">
+                                                <img src="/media/{{ i.IMAGE }}" alt="" style="height: 270px;">
+                                            </figure>
+                                            <div class="lower-content">
+                                                <span class="category">{{ i.NAME }}</span>
+                                                <h3>Rs. {{ i.PRICE }}</h3>
+                                                <form action="/product-details.html" method="post">
+                                                {%csrf_token%}
+                                                    <input type="hidden" value="{{i.id}}" name="pid">
+                                                    <input class="btn btn-danger" type="submit" value="View Details">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 {% endif %}
+                                {% endfor %}
+                            </div>
+                </div>
+        </section>
+        <!-- other-shop-section end -->
+
+     <!-- main-footer -->
+        <section class="main-footer">
+            <div class="auto-container">
+                <div class="widget-section">
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-12 footer-column">
+                            <div class="footer-widget about-widget">
+                                <div class="widget-title">
+                                    <h3>About White Space Studio</h3>
+                                </div>
+                                <div class="text">
+                                    <p>Welcome to Whitespace Studio, where creativity meets functionality in the realm of interior solutions. At Whitespace Studio, we believe that a well-designed space can transform not just the physical environment but also the way people interact within it. With a passion for innovation and a commitment to excellence, we bring your vision to life, one space at a time.</p>
+                                </div>
+<!--                                <div class="email-box"><i class="far fa-envelope-open-text"></i><a href="mailto:support@gmail.com">support@gmail.com</a></div>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 footer-column">
+                            <div class="footer-widget links-widget ml-90">
+                                <div class="widget-title">
+                                    <h3>Quick Links</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="links-list clearfix">
+                                        <li><a href="/contact.html">Help & Contact Us</a></li>
+                                        <li><a href="/about.html">About Us</a></li>
+                                        {%if request.session.logid is None %}
+                                        <li><a href="/login">Login</a></li>
+                                        <li><a href="/login">Sign Up</a></li>
+                                        {%endif%}
+                                    </ul>
+                                </div>
+                             </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="footer-bottom clearfix">
+                    <div class="copyright pull-left">
+                        <p>Copyright &copy; 2024 <a href="/">White Space Studio</a>. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- main-footer end -->
+
+
+        <!--Scroll to top-->
+        <button class="scroll-top scroll-to-target" data-target="html">
+            <span class="fal fa-angle-up"></span>
+        </button>
+    </div>
+
+
+    <!-- jequery plugins -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/owl.js"></script>
+    <script src="/static/js/wow.js"></script>
+    <script src="/static/js/validation.js"></script>
+    <script src="/static/js/jquery.fancybox.js"></script>
+    <script src="/static/js/appear.js"></script>
+    <script src="/static/js/scrollbar.js"></script>
+    <script src="/static/js/jquery.nice-select.min.js"></script>
+    <script src="/static/js/bxslider.js"></script>
+    <script src="/static/js/jquery.bootstrap-touchspin.js"></script>
+
+    <!-- main-js -->
+    <script src="/static/js/script.js"></script>
+
+</body><!-- End of .page_wrapper -->
+</html>

@@ -1,0 +1,118 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block main%}
+
+  <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><i class="fas fa-times"></i></div>
+
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="/"><img src="/static/images/logo-2.png" alt="" title=""></a></div>
+                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+                <div class="contact-info">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>Chicago 12, Melborne City, USA</li>
+                        <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+                        <li><a href="mailto:info@example.com">info@example.com</a></li>
+                    </ul>
+                </div>
+                <div class="social-links">
+                    <ul class="clearfix">
+                        <li><a href="/"><span class="fab fa-twitter"></span></a></li>
+                        <li><a href="/"><span class="fab fa-facebook-square"></span></a></li>
+                        <li><a href="/"><span class="fab fa-pinterest-p"></span></a></li>
+                        <li><a href="/"><span class="fab fa-instagram"></span></a></li>
+                        <li><a href="/"><span class="fab fa-youtube"></span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div><!-- End Mobile Menu -->
+
+
+        <!-- Page Title -->
+        <section class="page-title centred" style="background-image: url(/static/images/background/whitespace1.jpg);">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1>Our Products</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="/">Home</a></li>
+                        <li>Products</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- End Page Title -->
+
+
+        <!-- shop-section -->
+        <section class="shop-page-section">
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                        <div class="shop-sidebar default-sidebar">
+<!--                            <div class="sidebar-search">-->
+<!--                                <form action="shop.html" method="post" class="search-form">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <input type="search" name="search-field" placeholder="Search here" required="">-->
+<!--                                        <button type="submit"><i class="far fa-search"></i></button>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                            </div>-->
+                            <div class="sidebar-widget category-widget">
+                                <div class="widget-title">
+                                    <h3>Product Category</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="category-list clearfix">
+                                           {% for i in cat %}
+                                            <li>
+                                                <form method="post" action="category.html">
+                                                    {%csrf_token%}
+                                                    <input type="hidden" value="{{i.id}}" name="cateid" >
+                                                    <input type="submit" value="{{ i.CATNAME }}" class="btn btn-none" >
+                                                </form>
+                                            </li>
+                                            {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                        <div class="our-shop">
+                            <div class="row clearfix">
+                                {% for i in cdata %}
+                                {% if forloop.counter <= 8 %}
+                                <div class="col-lg-6 col-md-6 col-sm-12 shop-block">
+                                    <div class="shop-block-one">
+                                        <div class="inner-box">
+                                            <figure class="image-box"><a href="/shop-details.html/{{ i.id }}"><img src="/media/{{ i.IMAGE }}" alt="" style="height: 270px; width: 370px;"></a></figure>
+                                            <div class="lower-content">
+                                                <ul class="rating clearfix">
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                </ul>
+                                                <h5><a href="shop-details.html">{{ i.NAME }}</a></h5>
+                                                <span class="price">₹ {{ i.PRICE }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- shop-section end -->
+{%endblock%}

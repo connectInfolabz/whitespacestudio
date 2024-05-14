@@ -1,0 +1,113 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block main%}
+
+
+        <!-- banner-section -->
+        <section class="banner-section">
+            <div class="banner-carousel owl-theme owl-carousel owl-nav-none">
+                <div class="slide-item">
+                    <div class="image-layer" style="background-image:url(static/images/background/whitespace1.jpg)"></div>
+                    <div class="auto-container">
+                        <div class="row align-items-center clearfix">
+                            <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                                <div class="content-box">
+                                    <h5>Intirior Designer</h5>
+                                    <h1>White Space Studio</h1>
+                                    <div class="btn-box">
+                                        <a href="/shop.html" class="theme-btn style-one">Products<i class="far fa-angle-double-right"></i></a>
+                                        <a href="/about.html" class="theme-btn banner-btn">lEARN MORE<i class="far fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                                <div class="image-box">
+                                    <figure class="image"><img src="https://source.unsplash.com/720x600/?furniture" alt=""></figure>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="slide-item">
+                    <div class="image-layer" style="background-image:url(static/images/background/whitespace1.jpg)"></div>
+                    <div class="auto-container">
+                        <div class="row align-items-center clearfix">
+                            <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                                <div class="content-box">
+                                    <h5>Intirior Designer</h5>
+                                    <h1>White Space Studio</h1>
+                                    <div class="btn-box">
+                                        <a href="/shop.html" class="theme-btn style-one">Product<i class="far fa-angle-double-right"></i></a>
+                                        <a href="/about.html" class="theme-btn banner-btn">lEARN MORE<i class="far fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                                <div class="image-box">
+                                    <figure class="image"><img src="https://source.unsplash.com/720x600/?furniture image" alt=""></figure>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="slide-item">
+                    <div class="image-layer" style="background-image:url(static/images/background/whitespace1.jpg)"></div>
+                    <div class="auto-container">
+                        <div class="row align-items-center clearfix">
+                            <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                                <div class="content-box">
+                                    <h5>Intirior Designer</h5>
+                                    <h1>White Space Studio</h1>
+                                    <div class="btn-box">
+                                        <a href="/shop.html" class="theme-btn style-one">Products<i class="far fa-angle-double-right"></i></a>
+                                        <a href="/about.html" class="theme-btn banner-btn">lEARN MORE<i class="far fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                                <div class="image-box">
+                                    <figure class="image"><img src="https://source.unsplash.com/720x600/?furniture img" alt=""></figure>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!-- banner-section end -->
+
+
+    <!-- news-section -->
+    <section class="news-section">
+        <div class="auto-container">
+            <div class="sec-title centred">
+                <h2>Our Products <br></h2>
+            </div>
+            <div class="row clearfix">
+                {% for i in prodata reversed %}
+                {% if forloop.counter <= 6 %}
+                 <div class="col-lg-4 col-md-6 col-sm-12 news-block mb-4">
+                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <figure class="image-box">
+                                <img src="/media/{{ i.IMAGE }}" alt="" style="height: 270px;">
+                            </figure>
+                            <div class="lower-content">
+                                <span class="category">{{ i.NAME }}</span>
+                                <h3>Rs. {{ i.PRICE }}</h3>
+                                <form action="/product-details.html" method="post">
+                                {%csrf_token%}
+                                    <input type="hidden" value="{{i.id}}" name="pid">
+                                    <input class="btn" type="submit" value="View Details">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+        <!-- news-section end -->
+{%endblock%}

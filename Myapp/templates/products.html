@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+
+<!-- Page Title -->
+<section class="page-title centred" style="background-image: url(/static/images/background/whitespace1.jpg);">
+    <div class="auto-container">
+        <div class="content-box">
+            <div class="title">
+                <h1>Our Products</h1>
+            </div>
+            <ul class="bread-crumb clearfix">
+                <li><a href="/">Home</a></li>
+                <li>Products</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- End Page Title -->
+
+<!-- news-section -->
+<section class="news-section">
+    <div class="auto-container">
+        <div class="sec-title centred">
+            <h2>Our Products <br></h2>
+        </div>
+        <div class="row clearfix">
+            {% for i in prodata %}
+            <div class="col-lg-4 col-md-6 col-sm-12 news-block mb-4">
+                <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <img src="/media/{{ i.IMAGE }}" alt="" style="height: 270px;">
+                        </figure>
+                        <div class="lower-content">
+                            <span class="category">{{ i.NAME }}</span>
+                            <h3>Rs. {{ i.PRICE }}</h3>
+                            <form action="/product-details.html" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ i.id }}" name="pid">
+                                <input class="btn btn-danger" type="submit" value="View Details">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="pagination-wrapper">
+        <ul class="pagination centred">
+            <!-- Pagination links -->
+            {% if prodata.has_previous %}
+            <li><a href="?page={{ prodata.previous_page_number }}"><i class="far fa-arrow-left"></i></a></li>
+            {% else %}
+            <li class="disabled"><span><i class="far fa-arrow-left"></i></span></li>
+            {% endif %}
+
+            {% for num in prodata.paginator.page_range %}
+            {% if prodata.number == num %}
+            <li><a href="?page={{ num }}" class="current">{{ num }}</a></li>
+            {% else %}
+            <li><a href="?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if prodata.has_next %}
+            <li><a href="?page={{ prodata.next_page_number }}"><i class="far fa-arrow-right"></i></a></li>
+            {% else %}
+            <li class="disabled"><span><i class="far fa-arrow-right"></i></span></li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+<!-- shop-section end -->
+
+{% endblock %}
