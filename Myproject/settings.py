@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-pwtz1tw$u)nqzbwob1gv^8qs=9e(vt@kh+x1%lxc%bibrzcb)t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,11 +119,13 @@ USE_TZ = True
 
 import os
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'Myproject/static')]
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# STATICFILES_DIRS = [os.path.join(BASE_DIR,'Myproject/static')]
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
+STATICFILES_DIRS = [BASE_DIR / "static"] # new
+STATIC_ROOT = BASE_DIR / "staticfiles" # new
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
